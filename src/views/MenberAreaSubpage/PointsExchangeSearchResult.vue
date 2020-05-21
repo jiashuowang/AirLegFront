@@ -122,31 +122,45 @@
             this.select();
         },
         created() {
-            this.mounted();
-            // const _this = this
-            // axios.get('http://localhost:8181/MembersArea/PointsExchange/'+this.$route.query.depCity+this.$route.query.arrCity+this.$route.query.flightDate).then(function(resp){
-            //     _this.tableData = resp.data
-            // })
-        },
-        mounted: function () {
-            this.id = this.$route.query.id;
+            // this.mounted();
             this.dep_ct = this.$route.query.depCity;
             this.arr_ct = this.$route.query.arrCity;
-            this.dep_time = this.$route.query.flightDate;
+            this.dep_time = this.$route.query.dateValue;
+            const _this = this
+            axios.get("http://localhost:8181/ExchangePoints/"+this.$route.query.depCity+"/"+this.$route.query.arrCity+"/"+this.$route.query.dateValue).then(function(resp){
+                console.log(resp)
+                _this.tableData = resp.data
+            })
+        },
+        mounted: function () {
+            // this.id = this.$route.query.id;
+            // this.dep_ct = this.$route.query.depCity;
+            // this.arr_ct = this.$route.query.arrCity;
+            // this.dep_time = this.$route.query.flightDate;
         },
         methods: {
             open(row) {
+                const _this = this
                 this.$confirm('是否确认兑换?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '兑换成功!' + this.id + row.points_need
-                    });
+                    axios.get('http://localhost:8181/ExchangePoints/deductPoints/'+this.id+'/'+row.points_need).then(function(resp) {
+                        if (resp.data == "success") {
+                            _this.$message({
+                                type: 'success',
+                                message: '兑换成功!'
+                            });
+                        } else {
+                            _this.$message({
+                                type: 'error',
+                                message: '兑换失败!'
+                            });
+                        }
+                    })
                 }).catch(() => {
-                    this.$message({
+                    _this.$message({
                         type: 'info',
                         message: '已取消兑换'
                     });

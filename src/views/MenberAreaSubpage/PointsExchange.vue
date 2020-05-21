@@ -78,10 +78,10 @@
             this.select();
         },
         created() {
-            this.mounted();
+            // this.mounted();
         },
         mounted: function () {
-            this.id = this.$route.query.id;
+            // this.id = this.$route.query.id;
         },
         methods: {
             handleClick(dep_ct, arr_ct, dep_time){

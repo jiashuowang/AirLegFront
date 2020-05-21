@@ -40,7 +40,7 @@
                                     :data="tableData"
                                     style="width: 100%">
                                 <el-table-column
-                                        prop="flight_no"
+                                        prop="flightNo"
                                         label="航班号"
                                         width="200">
                                 </el-table-column>
@@ -107,27 +107,45 @@
             this.select();
         },
         created() {
-            this.mounted();
-        },
-        mounted: function () {
-            this.id = this.$route.query.id;
             this.airlineCode = this.$route.query.airlineCode;
             this.flightNumber = this.$route.query.flightNumber;
             this.flight_no = this.$route.query.airlineCode + this.$route.query.flightNumber;
+            // this.mounted();
+            const _this = this
+            axios.get("http://localhost:8181/MileageUpgrade/"+_this.$route.query.airlineCode + _this.$route.query.flightNumber).then(function(resp){
+                console.log(resp)
+                _this.tableData = resp.data
+            })
+        },
+        mounted: function () {
+            // this.id = this.$route.query.id;
+            // this.airlineCode = this.$route.query.airlineCode;
+            // this.flightNumber = this.$route.query.flightNumber;
+            // this.flight_no = this.$route.query.airlineCode + this.$route.query.flightNumber;
         },
         methods: {
             open(row) {
+                const _this = this
                 this.$confirm('是否确认升舱?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '升舱成功!' + this.id + row.mileage
-                    });
+                    axios.get('http://localhost:8181/MileageUpgrade/upgrade/'+this.id+'/'+row.mileage).then(function(resp) {
+                        if (resp.data == "success") {
+                            _this.$message({
+                                type: 'success',
+                                message: '升舱成功!'
+                            });
+                        } else {
+                            _this.$message({
+                                type: 'error',
+                                message: '升舱失败!'
+                            });
+                        }
+                    })
                 }).catch(() => {
-                    this.$message({
+                    _this.$message({
                         type: 'info',
                         message: '已取消升舱'
                     });

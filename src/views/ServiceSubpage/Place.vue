@@ -15,10 +15,11 @@
                             <el-card :body-style="{ padding: '10px' }" style="opacity: 0.95" shadow="hover">
                                 <el-image
                                         style="height: 151px; width: 268px"
-                                        :src="place.placeUrl"
+                                        :src="getImageURL(place.placeURL)"
                                         fit = 'fill'></el-image>
+
                                 <div style="text-align: center; padding:8px">
-                                    <span>{{place.placeName}}</span>
+                                    <el-link :underline="false" :href="place.jumpPage">{{place.placeName}} </el-link>
                                 </div>
                             </el-card>
                         </el-col>
@@ -37,29 +38,29 @@
                 id: this.$route.query.id,
                 cluster: 'test',
                 placeData: [{
-                    placeName: '杭州',
-                    placeUrl: require('../../assets/hangzhou.jpg')
+                    place_name: '杭州',
+                    place_url: require('../../assets/hangzhou.jpg')
                 }, {
-                    placeName: '张家界',
-                    placeUrl: require('../../assets/zhangjiajie.jpg')
+                    place_name: '张家界',
+                    place_url: require('../../assets/zhangjiajie.jpg')
                 }, {
-                    placeName: 'test',
-                    placeUrl: require('../../assets/mountain.jpeg')
+                    place_name: 'test',
+                    place_url: require('../../assets/mountain.jpeg')
                 }, {
-                    placeName: 'test',
-                    placeUrl: require('../../assets/mountain.jpeg')
+                    place_name: 'test',
+                    place_url: require('../../assets/mountain.jpeg')
                 }, {
-                    placeName: 'test',
-                    placeUrl: require('../../assets/mountain.jpeg')
+                    place_name: 'test',
+                    place_url: require('../../assets/mountain.jpeg')
                 }, {
-                    placeName: 'test',
-                    placeUrl: require('../../assets/mountain.jpeg')
+                    place_name: 'test',
+                    place_url: require('../../assets/mountain.jpeg')
                 }, {
-                    placeName: 'test',
-                    placeUrl: require('../../assets/mountain.jpeg')
+                    place_name: 'test',
+                    place_url: require('../../assets/mountain.jpeg')
                 }, {
-                    placeName: 'test',
-                    placeUrl: require('../../assets/mountain.jpeg')
+                    place_name: 'test',
+                    place_url: require('../../assets/mountain.jpeg')
                 }
                 ],
                 backgroundDiv: {
@@ -69,15 +70,25 @@
                 }
             }
         },
+        methods: {
+            getImageURL(taskImg){
+                return require('@/assets/Place/'+taskImg);
+            }
+        },
         activated () {
             this.mounted();
             this.select();
         },
         created() {
-            this.mounted();
+            const _this = this
+            // this.mounted();
+            axios.get("http://localhost:8181/Place/getAll").then(function(resp){
+                console.log(resp)
+                _this.placeData = resp.data
+            })
         },
         mounted: function () {
-            this.id = this.$route.query.id;
+            // this.id = this.$route.query.id;
         }
     }
 </script>
