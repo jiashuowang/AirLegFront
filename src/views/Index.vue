@@ -8,6 +8,7 @@
                             <template slot="title"><i class="el-icon-menu"></i>会员管理</template>
                             <el-menu-item index="/Manage/UserManage">查询会员</el-menu-item>
                             <el-menu-item index="/Manage/AddUser">添加会员</el-menu-item>
+                            <el-menu-item index="/Manage/ShowUser">数据可视化</el-menu-item>
                         </el-submenu>
                     </el-menu>
                 </el-aside>

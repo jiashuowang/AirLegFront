@@ -12,6 +12,9 @@
                             <el-form-item label="飞行状态">
                                 <span>{{Flight.flight_state}}</span>
                             </el-form-item>
+                            <el-form-item label="日期">
+                                <span>{{Flight.date}}</span>
+                            </el-form-item>
                             <el-form-item label="预计起飞时间">
                                 <span>{{Flight.depscheduled}}</span>
                             </el-form-item>
@@ -27,22 +30,24 @@
                             <el-form-item label="起飞城市">
                                 <span>{{Flight.dep_ct}}</span>
                             </el-form-item>
-                            <el-form-item label="起飞机场代号">
-                                <span>{{Flight.dep_code}}</span>
-                            </el-form-item>
                             <el-form-item label="起飞航站楼">
                                 <span>{{Flight.dep_terminal}}</span>
                             </el-form-item>
                             <el-form-item label="到达城市">
                                 <span>{{Flight.arr_ct}}</span>
                             </el-form-item>
-                            <el-form-item label="到达机场代号">
-                                <span>{{Flight.arr_code}}</span>
-                            </el-form-item>
                             <el-form-item label="到达航站楼">
                                 <span>{{Flight.arr_terminal}}</span>
                             </el-form-item>
+
                         </el-form>
+                        <el-row>
+                            <el-col :span="4" :offset="10">
+                                <template>
+                                    <el-button type="primary"  @click="open(Flight.flightno, Flight.price)"> 购买</el-button>
+                                </template>
+                            </el-col>
+                        </el-row>
                     </div>
                 </el-card>
             </el-col>
@@ -86,11 +91,11 @@
                     arr_scheduled: '',
                     arr_actual: '',
                     dep_ct: '',
-                    dep_code: '',
                     dep_terminal: '',
                     arr_ct: '',
-                    arr_code: '',
+                    date: '',
                     arr_terminal: '',
+                    price: ''
                 },
                 backgroundDiv: {
                     backgroundImage:'url(' + require('../../assets/mountain.jpeg') + ')',
@@ -105,6 +110,7 @@
         },
         created() {
             // this.mounted();
+            this.id = this.$route.query.id
             const _this = this
             axios.get('http://localhost:8181/FlightQuery/'+this.$route.query.flightNo + "/"+ this.$route.query.flightDate).then(function(resp){
                 _this.Flight = resp.data
@@ -114,6 +120,24 @@
             // this.id = this.$route.query.id;
             // this.Flight.flight_no = this.$route.query.flightNo;
             // this.Flight.flight_date = this.$route.query.flightDate;
+        },
+        methods: {
+            open(flightno,price) {
+                if(this.id == "undefined"){
+                    this.$router.push({
+                        path: '/Login'
+                    })
+                } else {
+                    this.$router.push({
+                        path: '/Buy',
+                        query: {
+                            id: this.id,
+                            flightno: flightno,
+                            price: price
+                        }
+                    })
+                }
+            }
         }
     }
 </script>

@@ -21,8 +21,10 @@
                     router>
               <el-menu-item style="height: 60px" :index="'/'+'?id='+this.$route.query.id">首页</el-menu-item>
               <el-menu-item style="height: 60px" :index="'/FlightCheck'+'?id='+this.$route.query.id">航班查询</el-menu-item>
+              <el-menu-item style="height: 60px" :index="'/Activity'+'?id='+this.$route.query.id">今日优惠</el-menu-item>
               <el-menu-item style="height: 60px" :index="'/MembersArea'+'?id='+this.$route.query.id">会员专区</el-menu-item>
               <el-menu-item style="height: 60px" :index="'/Service'+'?id='+this.$route.query.id">推荐专区</el-menu-item>
+              <el-menu-item style="height: 60px" :index="'/Travel'+'?id='+this.$route.query.id">旅游出差</el-menu-item>
               <el-menu-item style="height: 60px" :index="'/PersonalCenter'+'?id='+this.$route.query.id">个人中心</el-menu-item>
               <el-menu-item style="height: 60px" :index="'/LogIn'">登录</el-menu-item>
               <el-menu-item style="height: 60px" :index="'/Register'">注册</el-menu-item>

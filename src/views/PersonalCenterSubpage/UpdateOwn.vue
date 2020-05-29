@@ -108,7 +108,7 @@
             }
         },
         created() {
-            alert(this.$route.query.id)
+            // alert(this.$route.query.id)
             const _this = this
             axios.get('http://localhost:8181/Personal/findById/?id='+this.$route.query.id).then(function(resp){
                 _this.ruleForm = resp.data

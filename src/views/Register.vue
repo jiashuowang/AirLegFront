@@ -22,7 +22,7 @@
                                 <el-input placeholder="请输入工作城市" v-model="ruleForm.work_city"></el-input>
                             </el-form-item>
                             <el-form-item  prop="work_province" >
-                                <el-input placeholder="请输入工作城市" v-model="ruleForm.work_province"></el-input>
+                                <el-input placeholder="请输入工作省份" v-model="ruleForm.work_province"></el-input>
                             </el-form-item>
                             <el-form-item  prop="work_country" >
                                 <el-input placeholder="请输入工作国家" v-model="ruleForm.work_country"></el-input>

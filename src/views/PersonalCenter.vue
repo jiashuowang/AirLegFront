@@ -1,7 +1,7 @@
 <template>
     <div id="PersonalCenter">
         <div style="height: 600px" :style="backgroundDiv">
-            <el-row>
+            <el-row >
                 <div style="height: 5px"></div>
                 <el-col :span="8" :offset="8">
                     <el-card :body-style="{ padding: '18px' }" style="opacity: 0.95">

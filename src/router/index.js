@@ -21,6 +21,10 @@ import Index from "../views/Index";
 import UserManage from "../views/Manage/UserManage";
 import UpdateUser from "../views/Manage/UpdateUser";
 import AddUser from "../views/Manage/AddUser";
+import ShowUser from "../views/Manage/ShowUser";
+import Activity from "../views/Activity";
+import Travel from "../views/Travel";
+import Buy from "../views/Buy";
 
 Vue.use(VueRouter)
 
@@ -36,6 +40,11 @@ const routes = [
     component: FlightCheck
   },
   {
+    path: '/Activity',
+    name: '今日优惠',
+    component: Activity
+  },
+  {
     path: '/MembersArea',
     name: '会员专区',
     component: MembersArea
@@ -44,6 +53,11 @@ const routes = [
     path: '/Service',
     name: '推荐专区',
     component: Service
+  },
+  {
+    path: '/Travel',
+    name: "旅游出差",
+    component: Travel
   },
   {
     path: '/PersonalCenter',
@@ -130,8 +144,18 @@ const routes = [
         name: '添加',
         component: AddUser
       },
+      {
+        path: '/Manage/ShowUser',
+        name: '可视化',
+        component: ShowUser
+      }
     ]
   },
+  {
+    path: '/Buy',
+    name: '支付',
+    component: Buy
+  }
 ]
 
 const router = new VueRouter({

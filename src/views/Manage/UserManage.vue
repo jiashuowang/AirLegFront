@@ -1,6 +1,16 @@
 <template>
     <div id="UserManage">
         <div style="height: 540px">
+            <div>
+                <el-row :gutter="20">
+                    <el-col :span="6" >
+                        <el-input placeholder="用户ID" v-model="input1" class="input-with-select">
+                            <el-button slot="append" icon="el-icon-search" @click="handleID(input1)"></el-button>
+                        </el-input>
+                    </el-col>
+                </el-row>
+            </div>
+            <div style="height: 20px"></div>
             <el-table
                     :data="tableData"
                     border
@@ -55,7 +65,7 @@
             <el-pagination
                     background
                     layout="prev, pager, next"
-                    page-size="8"
+                    page-size="7"
                     :total="total"
                     @current-change="page">
             </el-pagination>
@@ -93,17 +103,23 @@
             },
             page(currentPage){
                 const _this=this
-                axios.get('http://localhost:8181/Manage/findAll/'+(currentPage-1)+'/8').then(function (resp) {
+                axios.get('http://localhost:8181/Manage/findAll/'+(currentPage-1)+'/7').then(function (resp) {
                     _this.tableData=resp.data.content
                     _this.total=resp.data.totalElements
                 })
             },
-
+            handleID(id){
+                const _this=this
+                console.log(id);
+                axios.get('http://localhost:8181/Manage/findById/'+id).then(function (resp) {
+                    _this.tableData=resp.data
+                })
+            },
         },
         // 当页面加载时就触发
         created() {
             const _this=this
-            axios.get('http://localhost:8181/Manage/findAll/0/8').then(function (resp) {
+            axios.get('http://localhost:8181/Manage/findAll/0/7').then(function (resp) {
                 _this.tableData=resp.data.content
                 _this.total=resp.data.totalElements
                 // console.log(resp)
@@ -112,6 +128,8 @@
 
         data() {
             return {
+                input1: '',
+                input2: '',
                 total:10,
                 tableData: [{
                     id: '0091',
